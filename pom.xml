@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+    <modules>
+        <module>cup-common</module>
+        <module>cup-web</module>
+        <module>cup-service</module>
+        <module>cup-dao</module>
+        <module>cup-domain</module>
+    </modules>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.5.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.ca.ms</groupId>
+    <artifactId>cup</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>cup</name>
+    <description>my cup</description>
+
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>org.springframework.boot</groupId>-->
+        <!--<artifactId>spring-boot-starter-data-jpa</artifactId>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+        <!--<groupId>org.springframework.boot</groupId>-->
+        <!--<artifactId>spring-boot-starter-quartz</artifactId>-->
+        <!--</dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.15</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>3.2.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+            <version>1.2.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.8.1</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>4.3</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.29</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>27.0.1-jre</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.jboss.resteasy/resteasy-jaxrs -->
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jaxrs</artifactId>
+            <version>3.7.0.Final</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.quartz-scheduler/quartz -->
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+            <version>2.2.1</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.9.4</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjrt -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>1.9.4</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <mvn.ds.driverClassName>com.mysql.jdbc.Driver</mvn.ds.driverClassName>
+                <mvn.ds.url>jdbc:mysql://localhost:3306/cup?useUnicode=true&amp;characterEncoding=utf8&amp;allowMultiQueries=true</mvn.ds.url>
+
+                <mvn.druid.username>salt</mvn.druid.username>
+                <mvn.druid.password>saltstack</mvn.druid.password>
+
+                <mvn.log.path>/export/Logs/cup</mvn.log.path>
+                <mvn.job.upload.path>/export/Data/dap.cns.jd.com/cns-upload</mvn.job.upload.path>
+
+                <mvn.jvm.heap.max>4096</mvn.jvm.heap.max>
+                <mvn.jvm.heap.min>1024</mvn.jvm.heap.min>
+                <mvn.jvm.stack.max>1024</mvn.jvm.stack.max>
+                <mvn.server.port>9090</mvn.server.port>
+
+            </properties>
+        </profile>
+        <profile>
+            <id>product</id>
+            <properties>
+                <mvn.ds.driverClassName>com.mysql.jdbc.Driver</mvn.ds.driverClassName>
+                <mvn.ds.url>jdbc:mysql://localhost:3306/cup?useUnicode=true&amp;characterEncoding=utf8&amp;allowMultiQueries=true</mvn.ds.url>
+                <mvn.druid.username>root</mvn.druid.username>
+                <mvn.druid.password>root</mvn.druid.password>
+
+                <mvn.log.path>/export/Logs/cup</mvn.log.path>
+                <mvn.job.upload.path>/export/Data/data-archive/cns-upload</mvn.job.upload.path>
+
+                <mvn.jvm.heap.max>4096</mvn.jvm.heap.max>
+                <mvn.jvm.heap.min>1024</mvn.jvm.heap.min>
+                <mvn.jvm.stack.max>1024</mvn.jvm.stack.max>
+
+                <mvn.server.port>8890</mvn.server.port>
+
+
+                <!--过滤器排除路径，以逗号隔开 -->
+                <mvn.exclude.path>
+                    /static,/hessian,/rest,/soap,/shutdown,/cns/css,/cns/fonts,/cns/images,/cns/js,/cns/script,/css,/fonts,/images,/js,/script,/job/loadJobs,/associateJob/loadJobs,/agent/registerAgent,/agent/beatByAgent,/associateJob/updateStatus,/job/updateStatus,/jobd/saveOrUpdate,/monitor/saveOrUpdateDetail,/files
+                </mvn.exclude.path>
+            </properties>
+        </profile>
+    </profiles>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

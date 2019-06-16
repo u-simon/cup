@@ -1,0 +1,31 @@
+.cron-control {
+	background-color:#FFF;
+	background-image:none;
+	border:1px solid #e5e6e7;
+	border-radius:1px;
+	color:inherit;
+	padding:6px;
+	-webkit-transition:border-color .15s ease-in-out 0s,box-shadow .15s ease-in-out 0s;
+	transition:border-color .15s ease-in-out 0s,box-shadow .15s ease-in-out 0s;
+	font-size:14px
+}
+
+.cron-control {
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.cron-control.cron-month.cron-year {
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.cron-control.cron-year {
+	margin-left: 5px;
+	margin-right: 5px;	
+}
+
+.cron-control.cron-week {
+	margin-left: 5px;
+	margin-right: 5px;
+}

@@ -1,0 +1,64 @@
+#set($layout = "vm/layout/null.vm")
+<div class="wrapper wrapper-content">
+#foreach( $elem in $atss)
+  #if($velocityCount == 1)
+    <div>
+	  <input type="hidden" value="$atss.size()" id="agents"/>
+    </div>
+    <div class="row">
+  #end
+  #if($velocityCount >= 1 && $velocityCount % 2 == 1)
+    </div>
+    <div class="row">
+  #end
+  <div class="col-md-6">
+    <div class="ibox float-e-margins agent-ibox" style="padding-bottom: 0px; margin-bottom: 0px;">
+      <div class="ibox-title">
+      #if(${elem.agentStatus} == '1')
+        <span class="pull-right"><i class="fa fa-cog fa-spin fa-lg text-muted"></i></span>
+      #else
+        <span class="pull-right"><i class="fa fa-exclamation-triangle fa-lg text-danger"></i></span>
+      #end
+        <h3>
+        	<span id="sys_name" code="${elem.sysCode}">${elem.sysName}</span>【
+        	<span id="agent_name" code="${elem.agentCode}">${elem.agentCode}</span>】
+        </h3>
+       
+      </div><!-- ibox-title -->
+      <div class="ibox-content" style="padding-bottom: 0px;">
+        <div class="row">
+		  <div class="col-md-5" style="text-align: center;">
+			<h1 class="no-margins" id="task_num">${elem.taskNum}</h1>
+			<div class="font-bold text-navy"><small>任务总数</small></div>
+          </div>
+          <div class="col-md-5" style="text-align: center;">
+ 			<h1 class="no-margins" id="archivedQty">${elem.archivedQty}</h1>
+			<div class="font-bold text-navy"><small>已结转量</small></div>
+          </div>
+  
+        </div><!-- class="row" -->
+        <div class="row" >
+            <div class="col-sm-7" style="float:right; padding-right: 40px; padding-top: 20px;">
+			  <div class="input-group">
+				<span class="input-group-addon">按表统计</span> 
+				<select agentCode="$elem.agentCode" sysCode="$elem.sysCode" id="$velocityCount" class="form-control m-b">
+ 					<option value="">请选择结转表名</option>
+					#foreach( $elem1 in $elem.tableList)
+						<option value=$elem1 >$elem1</option>
+					#end
+				</select>
+			  </div>
+			</div>
+		</div>
+		<div class="echarts" id="$elem.agentCode" style="height:280px;"></div>
+      </div>
+    </div>
+  </div>
+  #if($velocityCount == $atss.size())
+    </div>
+  #end
+#end
+</div>
+<script src="#springUrl('/js/plugins/echarts/echarts.min.js')"></script>
+<script src="#springUrl('/js/plugins/echarts/macarons.js')"></script>
+<script src="#springUrl('/script/main/body.js')"></script>

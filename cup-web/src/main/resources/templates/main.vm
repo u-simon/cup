@@ -1,0 +1,154 @@
+#set($layout = "vm/layout/null.vm")
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>数据结转平台</title>
+	
+	<link href="#springUrl('/css/bootstrap.min.css?v=3.3.6')" rel="stylesheet"/> 
+    <link href="#springUrl('/css/font-awesome.min.css?v=4.4.0')" rel="stylesheet"/> 
+    <link href="#springUrl('/css/mystyle.css')" rel="stylesheet"/> 
+    
+    <!-- jqgrid-->
+    <link href="#springUrl('/css/plugins/jqgrid/ui.jqgrid.css')" rel="stylesheet"/> 
+
+    <!-- bootstrapValidator -->
+    <link href="#springUrl('/css/plugins/validator/bootstrapValidator.min.css')" rel="stylesheet"/> 
+    
+    <!-- sweetalert -->
+    <link href="#springUrl('/css/plugins/sweetalert/sweetalert.css')" rel="stylesheet"/> 
+    
+    <!-- jqcron -->
+    <link href="#springUrl('/css/plugins/jqcron/jqcron.css')" rel="stylesheet"/> 
+    <!-- fileinput -->
+    <link href="#springUrl('/css/plugins/fileinput/fileinput.min.css')" rel="stylesheet"/>
+    
+    <link href="#springUrl('/css/plugins/clockpicker/clockpicker.css')" rel="stylesheet"/>
+  
+    <link href="#springUrl('/css/plugins/codemirror/codemirror.css')" rel="stylesheet"/>
+    <link href="#springUrl('/css/plugins/codemirror/eclipse.css')" rel="stylesheet"/>
+    <link href="#springUrl('/css/plugins/codemirror/solarized.css')" rel="stylesheet"/>
+                    
+    <link href="#springUrl('/css/animate.min.css')" rel="stylesheet"/> 
+
+	<link href="#springUrl('/css/main.css')" rel="stylesheet"/> 
+	
+	<style>
+        html,body{ margin:0px; height:100%;}
+
+	</style>
+</head>
+<body style="overflow:auto;">
+<div class="wrap">
+	<div class="main" style="height: 100%">
+		<div class="main_header">
+		<a href="javascript:;" class="logo" ></a>
+		
+		<span class="main_user-info">
+		<ul class="header-right">
+			<li class="team dropdown">
+	   			<a class="dropdown-toggle" data-toggle="dropdown" href="#">       
+					<i></i>
+					<span>团队</span>
+				</a> 
+				<ul class="dropdown-menu" style="width: 300px;">
+					<div class="ibox float-e-margins">
+	                    <div class="ibox-title">  <h4>系统架构部</h4>  </div>
+	                    <div class="ibox-content">
+	                        <p style="line-height: 30px; font-size: 15px;"><i class="fa fa-send-o"></i> 运维人员：wangbaoling</p>
+	                        <p style="line-height: 30px; font-size: 15px;"><i class="fa fa-envelope-o"></i> 运维邮箱：wangbaoling@jd.com</p>
+	                        <p style="line-height: 30px; font-size: 15px;"><i class="fa fa-comments-o"></i> 咚咚群号：3450997</p>
+	                    </div>
+	                </div>
+				</ul>
+			</li>
+			<li class="user-guide">
+			<a href="http://cf.jd.com/pages/viewpage.action?pageId=75290563" target="_blank">
+				<i></i>
+				<span>使用手册</span>
+				</a>
+			</li>
+			
+		</ul>
+			<img src="#springUrl('/images/default.png')" width="34" height="34"/>
+			<span>${nick}</span>
+			<a href="${logOutAddr}" id="loginOut" class="logout">退出</a>
+		</span>
+	</div>
+	<div class="sidebars">
+
+	<ul class="menu">
+        #foreach( $elem in $menus)
+            <li class="job-manage">
+                <a href="javascript:;">
+                    <i></i>
+                    <span>$elem.name</span>
+                    </a>
+                    <ul class="sub-menu active">
+                        #foreach( $elem2 in $elem.children)
+                            <li  onclick=loadFrame("#springUrl('')${elem2.url}")><i></i><span>$elem2.name</span></li>
+                        #end
+                    </ul>
+            </li>
+            #end
+	    #*
+		<li class="config-manage ">
+			<a href="javascript:;">
+				<i></i>
+				<span>基础管理</span>
+				</a>
+				<ul class="sub-menu active">
+					<li  onclick=loadFrame("#springUrl('/sys/gotoSystemList')")  class="active"><i></i><span>系统管理</span></li>
+                    <li onclick=loadFrame("#springUrl('/agent/gotoAgentList')")><i></i><span>agent管理</span></li>
+                    <li onclick=loadFrame("#springUrl('/job/gotoTaskList')")><i></i><span>任务管理</span></li>
+                    <li onclick=loadFrame("#springUrl('/monitor/gotoMoniConfList')")><i></i><span>监控配置</span></li>
+				</ul>
+		</li>
+		<li class="job-manage">
+			<a href="javascript:;">
+				<i></i>
+				<span>运维工具</span>
+				</a>
+				<ul class="sub-menu">
+                    <li  onclick=loadFrame("#springUrl('/ssh/gotoSsh')")><i></i><span>服务器客户端</span></li>
+                    <li  onclick=loadFrame("#springUrl('/db/gotoDbquery')") ><i></i><span>查询机</span></li>
+				</ul>
+		</li>
+		<li class="monitor">
+			<a href="javascript:;">
+				<i></i>
+				<span>监控</span>
+				</a>
+				<ul class="sub-menu">
+                    <li  onclick=loadFrame("#springUrl('/monitor/gotoMoniDetailList')") ><i></i><span>监控详情</span></li>
+				</ul>
+		</li>
+		*#
+	</ul>
+	<div class="menu-head">
+		 <a href="javascript:;" class="expand"></a>
+    </div>
+</div>
+	
+		<div class="main-container" style="height:100%;overflow-y:scroll;overflow-x:hidden;">
+			<div id="mainFrame"  style="height:100%;"></div>
+		</div>
+	</div>
+	</div>
+	
+	<script type="text/javascript" src="#springUrl('/js/jquery.min.js')"></script>
+    <script type="text/javascript" src="#springUrl('/js/bootstrap.min.js')"></script>
+    <script type="text/javascript" src="#springUrl('/js/plugins/laydate/laydate.js')"></script>
+	<script type="text/javascript" src="#springUrl('/js/index.js')"></script>
+</body>
+</html>
+<script>
+
+loadFrame("#springUrl('/body')");
+function loadFrame(url){
+   $("#mainFrame").load(url);
+}
+	 
+</script>
+
+	

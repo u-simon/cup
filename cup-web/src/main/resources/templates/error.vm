@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+	<html>
+		<head>
+			<meta charset="utf-8" />
+			<title>迷你仓库管理系统</title>
+			<meta name="keywords" content="迷你仓库管理系统" />
+			<meta name="description" content="迷你仓库管理系统" />
+			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+			<link href="#springUrl('/css/bootstrap.min.css')" rel="stylesheet" />
+
+			<link rel="stylesheet" href="#springUrl('/css/ace.min.css')" />
+			<link rel="stylesheet" href="#springUrl('/css/ace-rtl.min.css')" />
+			<link rel="stylesheet" href="#springUrl('/css/ace-skins.min.css')" />
+		
+		</head>
+	<body >
+		<div id="container" class="w-frame clearfix">
+					<div class="page-content">
+						<div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+								<div class="error-container">
+									<div class="well ">
+										<div class="center">
+                                            <div id="refresh">
+                                             <style type="text/css">
+                                                 #refresh{text-align:left;margin:30px auto;width:750px;height:220px;background:url(http://img11.360buyimg.com/da/jfs/t160/314/1160356447/26691/d5aceb0e/53a402afNb99cacea.jpg) 0 0;position:relative}
+                                                 #refresh .txt{position:absolute;left:236px;top:16px;color:#fff;font-size:14px;font-family:"microsoft yahei"}
+                                                 #refresh .m{position:absolute;left:336px;top:80px;line-height:18px;font-size:14px}
+                                                 #refresh .m li{padding-bottom:8px}
+                                                 #refresh .m a{color:#005eab}
+                                                 #refresh .m .fore1,
+                                                 #refresh .m .fore2{font-family:"microsoft yahei"}
+                                                 #refresh .m .fore1 a{color:#e4393c}
+                                                 #refresh .m .fore2 a{color:#e4393c;font-weight:bold;font-size:18px;padding:0 3px}
+                                                 #refresh .m .fore3{font-weight:bold;font-size:12px}
+                                                 #refresh .m .fore4 a{margin-right:15px;font-size:12px}
+                                                 #refresh .acuxiao{background:url(http://img14.360buyimg.com/da/jfs/t442/15/63085409/1762/8ae935cf/54081720N59cf0602.jpg) no-repeat;padding-left:21px;display:inline-block;*display:inline;*zoom:1;height:16px;vertical-align:middle;}
+                                             </style>
+                                                <span class="txt">糟了...您没有系统权限... </span>
+                                                <ul class="m">
+                                                    <li class="fore1">您好：<a href="#">$!{erpNumber}</a>， 您可以联系管理员开通权限后再试。
+                                                    </li>
+                                                    <li class="fore2">返回<a href="http://erp.jd.com" target="_blank">ERP首页</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+										</div>
+									</div>
+								</div>
+
+								<!-- PAGE CONTENT ENDS -->
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div><!-- /.main-content -->
+	</body>
+	</html>
+
