@@ -1,9 +1,10 @@
 package com.ca.ms.cup.common.cache;
 
 /**
- * Created by zhaizhangquan.
+ *
  */
 public interface CacheClient {
+
     public Boolean setNX(String key, String value);
 
     public Boolean expire(String key, int seconds);

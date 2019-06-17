@@ -15,7 +15,7 @@ import java.util.Date;
 
 
 /**
- * Created by zhaizhangquan.
+ *
  */
 public class BaseOnDbLocker extends AbstractLocker {
     private static final String DEFAULT_TABLE_NAME = "distributed_locker";

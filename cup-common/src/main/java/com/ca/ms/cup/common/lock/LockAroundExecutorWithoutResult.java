@@ -1,7 +1,7 @@
 package com.ca.ms.cup.common.lock;
 
 /**
- * Created by zhaizhangquan.
+ *
  */
 public abstract class LockAroundExecutorWithoutResult implements LockAroundExecutor<Object> {
     @Override

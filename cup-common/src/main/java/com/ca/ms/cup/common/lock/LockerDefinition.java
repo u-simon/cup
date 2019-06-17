@@ -1,7 +1,7 @@
 package com.ca.ms.cup.common.lock;
 
 /**
- * Created by zhaizhangquan.
+ *
  */
 public interface LockerDefinition {
     public static final LockerDefinition DEFAULT_DEFINITION = new LockerDefinition() {

@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Created by zhaizhangquan.
+ *
  */
 public abstract class AbstractLocker implements Locker {
     protected final Logger logger = LoggerFactory.getLogger(getClass());

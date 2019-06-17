@@ -4,7 +4,7 @@ import com.ca.ms.cup.common.cache.CacheClient;
 import redis.clients.jedis.JedisCluster;
 
 /**
- * Created by zhaizhangquan.
+ *
  */
 public class JedisClusterClientAdapter implements CacheClient {
     private JedisCluster jedisCluster;

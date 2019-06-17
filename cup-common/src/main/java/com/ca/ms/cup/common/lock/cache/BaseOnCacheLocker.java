@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 
 /**
- * Created by zhaizhangquan.
+ *
  */
 @Component
 public class BaseOnCacheLocker extends AbstractLocker {

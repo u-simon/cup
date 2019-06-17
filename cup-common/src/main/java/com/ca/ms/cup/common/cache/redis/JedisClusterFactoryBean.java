@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by zhaizhangquan.
+ *
  */
 public class JedisClusterFactoryBean implements FactoryBean<JedisCluster>, InitializingBean {
     private static final String nodeItemSplitter = ":";

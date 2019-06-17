@@ -3,18 +3,22 @@ package com.ca.ms.cup.common.cache.redis;
 import com.ca.ms.cup.common.cache.CacheClient;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
-import redis.clients.jedis.util.Pool;
+import redis.clients.jedis.JedisPool;
+
+import javax.annotation.Resource;
 
 /**
- * Created by zhaizhangquan.
+ *
  */
 @Component
 public class JedisClientAdapter implements CacheClient {
-    private Pool<Jedis> jedisPool;
+    //    private Pool<Jedis> jedisPool;
+    @Resource
+    private JedisPool jedisPool;
+//    public void setJedisPool(Pool<Jedis> jedisPool) {
+//        this.jedisPool = jedisPool;
+//    }
 
-    public void setJedisPool(Pool<Jedis> jedisPool) {
-        this.jedisPool = jedisPool;
-    }
 
     @Override
     public Boolean setNX(String key, String value) {

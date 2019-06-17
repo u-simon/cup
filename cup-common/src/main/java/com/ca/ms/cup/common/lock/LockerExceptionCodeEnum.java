@@ -1,7 +1,7 @@
 package com.ca.ms.cup.common.lock;
 
 /**
- * Created by zhaizhangquan.
+ *
  */
 public enum LockerExceptionCodeEnum {
     ACQUIRE_FAILED(1), ACQUIRE_EXCEPTION(2), RELEASE_FAILED(3);

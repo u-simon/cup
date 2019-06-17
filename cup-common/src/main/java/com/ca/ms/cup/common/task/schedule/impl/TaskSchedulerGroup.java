@@ -16,7 +16,6 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.text.MessageFormat;
@@ -28,7 +27,7 @@ import java.util.stream.Collectors;
 /**
  *
  */
-@Component
+//@Component
 public class TaskSchedulerGroup implements ApplicationContextAware, InitializingBean, DisposableBean {
     private static final Logger logger = LoggerFactory.getLogger(TaskSchedulerGroup.class);
     private ApplicationContext applicationContext;

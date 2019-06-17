@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
@@ -12,7 +11,7 @@ import javax.sql.DataSource;
 //2018-1-15增加配置信息加密组件
 
 //
-@Configuration
+//@Configuration
 public class DataSourceConfig {
 
     @Value("${spring.druid.username}")

@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import java.lang.reflect.UndeclaredThrowableException;
 
 /**
- * Created by zhaizhangquan.
+ *
  */
 public class LockerTemplate implements LockerDefinition {
     private static final Logger logger = LoggerFactory.getLogger(LockerTemplate.class);

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+
+    <context:component-scan base-package="com.ca.ms.cup.service.task"/>
+
+    <bean id="taskSchedulerGroup" class="com.ca.ms.cup.common.task.schedule.impl.TaskSchedulerGroup">
+        <property name="appName" value="cup"/>
+        <property name="autoGenerateSchedulers" value="true"/>
+    </bean>
+
+    <bean id="taskDefinitionConfigSource" class="com.ca.ms.cup.service.task.CupTaskDefinitionConfigSourceImpl">
+        <property name="taskDefinitionConfigs">
+            <util:list>
+                <ref bean="bpcWorkerTask"></ref>
+
+            </util:list>
+        </property>
+    </bean>
+
+    <bean id="bpcWorkerTask" class="com.ca.ms.cup.service.task.TaskDefinitionConfigImpl">
+        <property name="bizTypes"
+                  value="-1,50"/>
+        <property name="tableName" value="bpc_worker_task"/>
+    </bean>
+</beans>
