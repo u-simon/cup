@@ -15,9 +15,9 @@ import java.util.List;
 public class WorkerTaskListResultSetConverter extends AbstractWorkerTaskConverter implements ResultSetConverter<List<WorkerTask>> {
     @Override
     public List<WorkerTask> convert(ResultSet rs) throws SQLException {
-        if (rs.wasNull()) {
-            return new ArrayList<>(0);
-        }
+//        if (rs.wasNull()) {
+//            return new ArrayList<>(0);
+//        }
         List<WorkerTask> workerTasks = new ArrayList<>();
         while (rs.next()) {
             WorkerTask workerTask = transform(rs);

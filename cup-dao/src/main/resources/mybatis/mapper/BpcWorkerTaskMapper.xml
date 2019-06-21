@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ca.ms.cup.dao.worker.BpcWorkerTaskDao">
+
+    <resultMap id="baseWorkerTaskMap" type="com.ca.ms.cup.domain.worker.BpcWorkerTask">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="uuid" property="uuid" jdbcType="VARCHAR"/>
+        <result column="biz_key" property="bizKey" jdbcType="VARCHAR"/>
+        <result column="biz_type" property="bizType" jdbcType="INTEGER"/>
+        <result column="execute_times" property="executeTimes" jdbcType="INTEGER"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="data" property="data" jdbcType="VARCHAR"/>
+        <result column="org_no" property="orgNo" jdbcType="VARCHAR"/>
+        <result column="distribute_no" property="distributeNo" jdbcType="VARCHAR"/>
+        <result column="warehouse_no" property="warehouseNo" jdbcType="VARCHAR"/>
+        <result column="remark" property="message" jdbcType="VARCHAR"/>
+        <result column="is_delete" property="isDelete" jdbcType="INTEGER"/>
+        <result column="next_trigger_time" property="nextTriggerTime" jdbcType="TIMESTAMP"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
+        <result column="ts" property="ts" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <resultMap id="workerTaskInfoMap" type="com.ca.ms.cup.domain.worker.BpcWorkerTask">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="uuid" property="uuid" jdbcType="VARCHAR"/>
+        <result column="biz_key" property="bizKey" jdbcType="VARCHAR"/>
+        <result column="biz_type" property="bizType" jdbcType="INTEGER"/>
+        <result column="execute_times" property="executeTimes" jdbcType="INTEGER"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="data" property="data" jdbcType="VARCHAR"/>
+        <result column="org_no" property="orgNo" jdbcType="VARCHAR"/>
+        <result column="distribute_no" property="distributeNo" jdbcType="VARCHAR"/>
+        <result column="warehouse_no" property="warehouseNo" jdbcType="VARCHAR"/>
+        <result column="remark" property="message" jdbcType="VARCHAR"/>
+        <result column="is_delete" property="isDelete" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR"/>
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR"/>
+        <result column="bill_no" property="billNo" jdbcType="VARCHAR"/>
+        <result column="container_no" property="containerNo" jdbcType="VARCHAR"/>
+        <result column="task_no" property="taskNo" jdbcType="VARCHAR"/>
+        <result column="notes" property="notes" jdbcType="VARCHAR"/>
+        <result column="ts" property="ts" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <resultMap id="taskNoBillNosMap" type="com.ca.ms.cup.domain.worker.BpcWorkerTask">
+        <result column="task_no" property="taskNo" jdbcType="VARCHAR"/>
+        <collection property="billNos" ofType="string">
+            <result column="bill_no" jdbcType="VARCHAR"/>
+        </collection>
+    </resultMap>
+
+    <sql id="baseColumns">
+        id,uuid,biz_key,biz_type,execute_times,status,data,org_no,distribute_no,warehouse_no,remark,is_delete,next_trigger_time,create_time,update_time,create_user,update_user
+    </sql>
+
+
+    <select id="selectList" parameterType="com.ca.ms.cup.domain.worker.BpcWorkerTaskQuery" resultMap="baseWorkerTaskMap">
+        SELECT
+        <include refid="baseColumns"/>
+        FROM bpc_worker_task
+        <where>
+            <if test="bizKey != null and bizKey != ''">
+                and biz_key = #{bizKey,jdbcType=VARCHAR}
+            </if>
+            <if test="bizType != null ">
+                and biz_type = #{bizType,jdbcType=INTEGER}
+            </if>
+            <if test="status != null ">
+                and status = #{status,jdbcType=INTEGER}
+            </if>
+            <if test="uuid != null and uuid != ''">
+                AND uuid = #{uuid,jdbcType=VARCHAR}
+            </if>
+            <if test="orgNo != null and orgNo != ''">
+                AND org_no = #{orgNo,jdbcType=VARCHAR}
+            </if>
+            <if test="distributeNo != null and distributeNo != ''">
+                AND distribute_no = #{distributeNo,jdbcType=VARCHAR}
+            </if>
+            <if test="warehouseNo != null and warehouseNo != ''">
+                AND warehouse_no = #{warehouseNo,jdbcType=VARCHAR}
+            </if>
+            <if test="fromTime != null and fromTime != ''">
+                <![CDATA[  AND create_time>= #{fromTime,jdbcType=VARCHAR} ]]>
+            </if>
+            <if test="toTime != null and toTime != ''">
+                <![CDATA[  AND create_time <= #{toTime,jdbcType=VARCHAR} ]]>
+            </if>
+            <choose>
+                <when test="isDelete != null">
+                    AND is_delete = #{isDelete,jdbcType=INTEGER}
+                </when>
+                <otherwise>
+                    AND is_delete = 0
+                </otherwise>
+            </choose>
+            order by id desc
+            <if test="startIndex != null and pageSize !=null">
+                LIMIT #{startIndex,jdbcType=INTEGER},#{pageSize,jdbcType=INTEGER}
+            </if>
+
+        </where>
+
+    </select>
+
+    <select id="count" parameterType="com.ca.ms.cup.domain.worker.BpcWorkerTaskQuery" resultType="java.lang.Integer">
+        SELECT count(1) FROM bpc_worker_task
+        <where>
+            <if test="bizKey != null and bizKey != ''">
+                and biz_key = #{bizKey,jdbcType=VARCHAR}
+            </if>
+            <if test="bizType != null ">
+                and biz_type = #{bizType,jdbcType=INTEGER}
+            </if>
+            <if test="status != null ">
+                and status = #{status,jdbcType=INTEGER}
+            </if>
+            <if test="uuid != null and uuid != ''">
+                AND uuid = #{uuid,jdbcType=VARCHAR}
+            </if>
+            <if test="orgNo != null and orgNo != ''">
+                AND org_no = #{orgNo,jdbcType=VARCHAR}
+            </if>
+            <if test="distributeNo != null and distributeNo != ''">
+                AND distribute_no = #{distributeNo,jdbcType=VARCHAR}
+            </if>
+            <if test="warehouseNo != null and warehouseNo != ''">
+                AND warehouse_no = #{warehouseNo,jdbcType=VARCHAR}
+            </if>
+            <if test="fromTime != null and fromTime != '' ">
+                <![CDATA[ AND create_time  >=#{fromTime,jdbcType=VARCHAR}  ]]>
+            </if>
+            <if test="toTime != null and toTime != '' ">
+                <![CDATA[ AND create_time <= #{toTime,jdbcType=VARCHAR} ]]>
+            </if>
+            <choose>
+                <when test="isDelete != null">
+                    AND is_delete = #{isDelete,jdbcType=INTEGER}
+                </when>
+                <otherwise>
+                    AND is_delete = 0
+                </otherwise>
+            </choose>
+        </where>
+
+    </select>
+    <select id="selectOutboundBillNoByTaskNo" parameterType="com.ca.ms.cup.domain.worker.BpcWorkerTaskQuery"
+            resultType="com.ca.ms.cup.domain.worker.TaskNoBillNoInfo">
+        SELECT DISTINCT distribute_no as distributeNo ,warehouse_no as warehouseNo,task_no as taskNo,bill_no as billNo
+        FROM outbound_task_detail
+        <where>
+            <if test="orgNo != null and orgNo != ''">
+                AND org_no = #{orgNo,jdbcType=VARCHAR}
+            </if>
+            <if test="distributeNo != null and distributeNo != ''">
+                AND distribute_no = #{distributeNo,jdbcType=VARCHAR}
+            </if>
+            <if test="warehouseNo != null and warehouseNo != ''">
+                AND warehouse_no = #{warehouseNo,jdbcType=VARCHAR}
+            </if>
+            <if test="bizKeyList != null and bizKeyList.size() > 0 ">
+                AND task_no in
+                <foreach collection="bizKeyList" open="(" close=")" separator="," item="item">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+        </where>
+
+    </select>
+
+    <select id="selectByPickResult" parameterType="com.ca.ms.cup.domain.worker.BpcWorkerTaskQuery"
+            resultType="com.ca.ms.cup.domain.worker.TaskNoBillNoInfo">
+
+        SELECT DISTINCT b.distribute_no as distributeNo ,b.warehouse_no as warehouseNo ,b.biz_type as bizType,b.biz_key
+        as bizKey,t.task_no as taskNo,d.bill_no as billNo FROM bpc_worker_task b
+        LEFT JOIN pick_milestone_result r ON b.distribute_no = r.distribute_no AND b.warehouse_no = r.warehouse_no AND
+        b.biz_key = r.batch_no
+        LEFT JOIN pick_milestone p ON r.distribute_no = p.distribute_no AND r.warehouse_no = p.warehouse_no AND
+        p.milestone_no = r.milestone_no
+        LEFT JOIN outbound_task t ON t.distribute_no = p.distribute_no AND t.warehouse_no = p.warehouse_no AND t.task_no
+        = p.job_no
+        LEFT JOIN outbound_task_detail d ON t.distribute_no = d.distribute_no AND t.warehouse_no = d.warehouse_no AND
+        t.task_no = d.task_no
+
+        <where>
+            b.is_delete = 0
+
+            <if test="bizType != null">
+                and b.biz_type = #{bizType,jdbcType=INTEGER}
+            </if>
+            <if test="orgNo != null and orgNo != ''">
+                AND b.org_no = #{orgNo,jdbcType=VARCHAR}
+            </if>
+            <if test="distributeNo != null and distributeNo != ''">
+                AND b.distribute_no = #{distributeNo,jdbcType=VARCHAR}
+            </if>
+            <if test="warehouseNo != null and warehouseNo != ''">
+                AND b.warehouse_no = #{warehouseNo,jdbcType=VARCHAR}
+            </if>
+            <if test="bizKeyList != null and bizKeyList.size() > 0 ">
+                AND b.biz_key in
+                <foreach collection="bizKeyList" open="(" close=")" separator="," item="item">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+        </where>
+
+    </select>
+
+
+    <select id="selectByPutawayTask" parameterType="com.ca.ms.cup.domain.worker.BpcWorkerTaskQuery"
+            resultType="com.ca.ms.cup.domain.worker.TaskNoBillNoInfo">
+
+        SELECT DISTINCT b.distribute_no as distributeNo ,b.warehouse_no as warehouseNo ,b.biz_type as bizType, b.biz_key
+        as bizKey,t.task_no as taskNo,t.bill_no as billNo,t.container_no as containerNo FROM bpc_worker_task b
+        LEFT JOIN putaway_task t ON t.distribute_no = b.distribute_no AND t.warehouse_no = b.warehouse_no AND t.task_no
+        = b.biz_key
+
+        <where>
+            b.is_delete = 0 and b.biz_type in (26, 30, 120, 220)
+            <if test="orgNo != null and orgNo != ''">
+                AND b.org_no = #{orgNo,jdbcType=VARCHAR}
+            </if>
+            <if test="distributeNo != null and distributeNo != ''">
+                AND b.distribute_no = #{distributeNo,jdbcType=VARCHAR}
+            </if>
+            <if test="warehouseNo != null and warehouseNo != ''">
+                AND b.warehouse_no = #{warehouseNo,jdbcType=VARCHAR}
+            </if>
+            <if test="bizKeyList != null and bizKeyList.size() > 0 ">
+                AND b.biz_key in
+                <foreach collection="bizKeyList" open="(" close=")" separator="," item="item">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+        </where>
+
+    </select>
+
+
+    <select id="selectByPutawayResult" parameterType="com.ca.ms.cup.domain.worker.BpcWorkerTaskQuery"
+            resultType="com.ca.ms.cup.domain.worker.TaskNoBillNoInfo">
+
+        SELECT DISTINCT b.distribute_no as distributeNo ,b.warehouse_no as warehouseNo ,b.biz_type as bizType,b.biz_key
+        as bizKey,t.task_no as
+        taskNo,t.bill_no as billNo,t.container_no as containerNo FROM bpc_worker_task b
+        LEFT JOIN putaway_milestone_result r ON b.distribute_no = r.distribute_no AND b.warehouse_no = r.warehouse_no
+        AND b.biz_key = r.batch_no
+        LEFT JOIN putaway_milestone p ON r.distribute_no = p.distribute_no AND r.warehouse_no = p.warehouse_no AND
+        p.milestone_no = r.milestone_no
+        LEFT JOIN putaway_task t ON t.distribute_no = p.distribute_no AND t.warehouse_no = p.warehouse_no AND t.task_no
+        = p.job_no
+
+        <where>
+            b.is_delete = 0 and b.biz_type = 130
+            <if test="orgNo != null and orgNo != ''">
+                AND b.org_no = #{orgNo,jdbcType=VARCHAR}
+            </if>
+            <if test="distributeNo != null and distributeNo != ''">
+                AND b.distribute_no = #{distributeNo,jdbcType=VARCHAR}
+            </if>
+            <if test="warehouseNo != null and warehouseNo != ''">
+                AND b.warehouse_no = #{warehouseNo,jdbcType=VARCHAR}
+            </if>
+            <if test="bizKeyList != null and bizKeyList.size() > 0 ">
+                AND b.biz_key in
+                <foreach collection="bizKeyList" open="(" close=")" separator="," item="item">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+        </where>
+
+    </select>
+
+    <select id="selectByPutawayReject" parameterType="com.ca.ms.cup.domain.worker.BpcWorkerTaskQuery"
+            resultType="com.ca.ms.cup.domain.worker.TaskNoBillNoInfo">
+
+        SELECT DISTINCT b.distribute_no as distributeNo ,b.warehouse_no as warehouseNo ,b.biz_type as bizType,b.biz_key
+        as bizKey,t.task_no as
+        taskNo,t.bill_no as billNo,t.container_no as containerNo FROM bpc_worker_task b
+        LEFT JOIN putaway_reject_result r ON b.distribute_no = r.distribute_no AND b.warehouse_no = r.warehouse_no AND
+        b.biz_key = r.batch_no
+        LEFT JOIN putaway_milestone p ON r.distribute_no = p.distribute_no AND r.warehouse_no = p.warehouse_no AND
+        p.milestone_no = r.milestone_no
+        LEFT JOIN putaway_task t ON t.distribute_no = p.distribute_no AND t.warehouse_no = p.warehouse_no AND t.task_no
+        = p.job_no
+
+        <where>
+            b.is_delete = 0 and b.biz_type = 150
+            <if test="orgNo != null and orgNo != ''">
+                AND b.org_no = #{orgNo,jdbcType=VARCHAR}
+            </if>
+            <if test="distributeNo != null and distributeNo != ''">
+                AND b.distribute_no = #{distributeNo,jdbcType=VARCHAR}
+            </if>
+            <if test="warehouseNo != null and warehouseNo != ''">
+                AND b.warehouse_no = #{warehouseNo,jdbcType=VARCHAR}
+            </if>
+            <if test="bizKeyList != null and bizKeyList.size() > 0 ">
+                AND b.biz_key in
+                <foreach collection="bizKeyList" open="(" close=")" separator="," item="item">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+        </where>
+
+    </select>
+
+    <select id="selectByMoveTask" parameterType="com.ca.ms.cup.domain.worker.BpcWorkerTaskQuery"
+            resultType="com.ca.ms.cup.domain.worker.TaskNoBillNoInfo">
+
+        SELECT DISTINCT b.distribute_no as distributeNo ,b.warehouse_no as warehouseNo ,b.biz_type as bizType, b.biz_key
+        as bizKey,t.task_no as taskNo,t.bill_no as billNo,t.container_no as containerNo FROM bpc_worker_task b
+        LEFT JOIN move_task t ON t.distribute_no = b.distribute_no AND t.warehouse_no = b.warehouse_no AND t.task_no =
+        b.biz_key
+
+        <where>
+            b.is_delete = 0 and b.biz_type = 170
+            <if test="orgNo != null and orgNo != ''">
+                AND b.org_no = #{orgNo,jdbcType=VARCHAR}
+            </if>
+            <if test="distributeNo != null and distributeNo != ''">
+                AND b.distribute_no = #{distributeNo,jdbcType=VARCHAR}
+            </if>
+            <if test="warehouseNo != null and warehouseNo != ''">
+                AND b.warehouse_no = #{warehouseNo,jdbcType=VARCHAR}
+            </if>
+            <if test="bizKeyList != null and bizKeyList.size() > 0 ">
+                AND b.biz_key in
+                <foreach collection="bizKeyList" open="(" close=")" separator="," item="item">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+        </where>
+
+    </select>
+    <select id="selectBySpecialTask" parameterType="com.ca.ms.cup.domain.worker.BpcWorkerTaskQuery"
+            resultType="com.ca.ms.cup.domain.worker.TaskNoBillNoInfo">
+
+        SELECT DISTINCT b.distribute_no as distributeNo ,b.warehouse_no as warehouseNo ,b.biz_type as bizType, b.biz_key
+        as bizKey,t.task_no as taskNo,t.container_no as containerNo FROM bpc_worker_task b
+        LEFT JOIN special_task t ON t.distribute_no = b.distribute_no AND t.warehouse_no = b.warehouse_no AND t.task_no
+        = b.biz_key
+
+        <where>
+            b.is_delete = 0 and b.biz_type in (210, 211, 212, 213, 214, 216)
+            <if test="orgNo != null and orgNo != ''">
+                AND b.org_no = #{orgNo,jdbcType=VARCHAR}
+            </if>
+            <if test="distributeNo != null and distributeNo != ''">
+                AND b.distribute_no = #{distributeNo,jdbcType=VARCHAR}
+            </if>
+            <if test="warehouseNo != null and warehouseNo != ''">
+                AND b.warehouse_no = #{warehouseNo,jdbcType=VARCHAR}
+            </if>
+            <if test="bizKeyList != null and bizKeyList.size() > 0 ">
+                AND b.biz_key in
+                <foreach collection="bizKeyList" open="(" close=")" separator="," item="item">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+        </where>
+
+    </select>
+
+
+    <select id="selectByReviewResult" parameterType="com.ca.ms.cup.domain.worker.BpcWorkerTaskQuery"
+            resultType="com.ca.ms.cup.domain.worker.TaskNoBillNoInfo">
+
+        SELECT DISTINCT b.distribute_no as distributeNo ,b.warehouse_no as warehouseNo ,b.biz_type as bizType,b.biz_key
+        as bizKey,t.task_no as
+        taskNo,t.bill_no as billNo FROM bpc_worker_task b
+        LEFT JOIN review_milestone_result r ON b.distribute_no = r.distribute_no AND b.warehouse_no = r.warehouse_no AND
+        b.biz_key = r.batch_no
+        LEFT JOIN review_milestone p ON r.distribute_no = p.distribute_no AND r.warehouse_no = p.warehouse_no AND
+        p.milestone_no = r.milestone_no
+        LEFT JOIN review_task t ON t.distribute_no = p.distribute_no AND t.warehouse_no = p.warehouse_no AND t.task_no =
+        p.job_no
+
+        <where>
+            b.is_delete = 0 and b.biz_type = 140
+            <if test="orgNo != null and orgNo != ''">
+                AND b.org_no = #{orgNo,jdbcType=VARCHAR}
+            </if>
+            <if test="distributeNo != null and distributeNo != ''">
+                AND b.distribute_no = #{distributeNo,jdbcType=VARCHAR}
+            </if>
+            <if test="warehouseNo != null and warehouseNo != ''">
+                AND b.warehouse_no = #{warehouseNo,jdbcType=VARCHAR}
+            </if>
+            <if test="bizKeyList != null and bizKeyList.size() > 0 ">
+                AND b.biz_key in
+                <foreach collection="bizKeyList" open="(" close=")" separator="," item="item">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+        </where>
+
+    </select>
+
+    <select id="selectByReviewMilestone" parameterType="com.ca.ms.cup.domain.worker.BpcWorkerTaskQuery"
+            resultType="com.ca.ms.cup.domain.worker.TaskNoBillNoInfo">
+
+        SELECT DISTINCT b.distribute_no as distributeNo ,b.warehouse_no as warehouseNo ,b.biz_type as bizType,b.biz_key
+        as bizKey,t.task_no as
+        taskNo,t.bill_no as billNo FROM bpc_worker_task b
+        LEFT JOIN review_milestone p ON b.distribute_no = p.distribute_no AND b.warehouse_no = p.warehouse_no AND
+        p.milestone_no = b.biz_key
+        LEFT JOIN review_task t ON t.distribute_no = p.distribute_no AND t.warehouse_no = p.warehouse_no AND t.task_no =
+        p.job_no
+
+        <where>
+            b.is_delete = 0 and b.biz_type = 160
+            <if test="orgNo != null and orgNo != ''">
+                AND b.org_no = #{orgNo,jdbcType=VARCHAR}
+            </if>
+            <if test="distributeNo != null and distributeNo != ''">
+                AND b.distribute_no = #{distributeNo,jdbcType=VARCHAR}
+            </if>
+            <if test="warehouseNo != null and warehouseNo != ''">
+                AND b.warehouse_no = #{warehouseNo,jdbcType=VARCHAR}
+            </if>
+            <if test="bizKeyList != null and bizKeyList.size() > 0 ">
+                AND b.biz_key in
+                <foreach collection="bizKeyList" open="(" close=")" separator="," item="item">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+        </where>
+
+    </select>
+
+    <select id="selectByReviewBill" parameterType="com.ca.ms.cup.domain.worker.BpcWorkerTaskQuery"
+            resultType="com.ca.ms.cup.domain.worker.TaskNoBillNoInfo">
+        SELECT DISTINCT b.distribute_no as distributeNo ,b.warehouse_no as warehouseNo ,b.biz_type as bizType,b.biz_key
+        as bizKey,t.bill_no as
+        billNo FROM bpc_worker_task b
+        LEFT JOIN review_bill t ON t.distribute_no = b.distribute_no AND t.warehouse_no = b.warehouse_no AND t.bill_no =
+        b.biz_key
+        <where>
+            b.is_delete = 0 and b.biz_type = 161
+            <if test="orgNo != null and orgNo != ''">
+                AND b.org_no = #{orgNo,jdbcType=VARCHAR}
+            </if>
+            <if test="distributeNo != null and distributeNo != ''">
+                AND b.distribute_no = #{distributeNo,jdbcType=VARCHAR}
+            </if>
+            <if test="warehouseNo != null and warehouseNo != ''">
+                AND b.warehouse_no = #{warehouseNo,jdbcType=VARCHAR}
+            </if>
+            <if test="bizKeyList != null and bizKeyList.size() > 0 ">
+                AND b.biz_key in
+                <foreach collection="bizKeyList" open="(" close=")" separator="," item="item">
+                    #{item,jdbcType=VARCHAR}
+                </foreach>
+            </if>
+        </where>
+
+    </select>
+</mapper>

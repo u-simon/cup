@@ -1,0 +1,6 @@
+#
+##数据源
+#spring:
+#  datasource:
+#    druid:
+#      connection-properties:

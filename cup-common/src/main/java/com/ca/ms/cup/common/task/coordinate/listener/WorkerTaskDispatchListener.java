@@ -14,9 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.event.SmartApplicationListener;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class WorkerTaskDispatchListener implements SmartApplicationListener {
     private static final Logger logger = LoggerFactory.getLogger(WorkerTaskDispatchListener.class);
     @Autowired
